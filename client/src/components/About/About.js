@@ -5,6 +5,8 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function About() {
   
   const [{ contract, web3 }] = ContractInit();
@@ -30,7 +32,7 @@ function About() {
             theme: "dark",
           });
         };
-        const { data } = await axios.get('http://localhost:4000/api/companyCount/companies/count');
+        const { data } = await axios.get(`${apiUrl}/api/companyCount/companies/count`);
         setNumberOfCompanies(data.count);
         console.log(data.count); 
       } catch (error) {
