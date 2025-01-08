@@ -48,7 +48,6 @@ Thumbs.db
 
 # Blockchain artifacts
 build/contracts/
-client/src/contracts/
 *.sol.js
 
 # Frontend specific
