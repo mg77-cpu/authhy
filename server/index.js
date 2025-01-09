@@ -10,6 +10,19 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 
+// Allow requests from the frontend URL
+const allowedOrigins = ['https://authhyclient.vercel.app/']; // Replace with your actual frontend URL
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
 //middlewares
 app.use(cors());
 app.use(express.json());
@@ -21,4 +34,4 @@ app.use("/api/companyCount", companyCountRoutes);
 
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Listening......`));
+app.listen(port, () => console.log(`Listening on port ${port}...`));

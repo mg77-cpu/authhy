@@ -173,7 +173,6 @@ const Login = () => {
             name="email"
             onChange={handleChange}
             value={data.email}
-            required
             className="my-1 w-80 rounded-sm p-2 outline-none bg-transparent border-none text-black blue-glassmorphism absolute top-20 left-8"
           />
           <input
@@ -182,7 +181,6 @@ const Login = () => {
             name="password"
             onChange={handleChange}
             value={data.password}
-            required
             className="my-1 w-80 rounded-sm p-2 outline-none bg-transparent border-none text-black blue-glassmorphism absolute top-36 left-8"
           />
           {error && <div

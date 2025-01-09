@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# But do not ignore the contracts directory itself
+!contracts/
+# And do not ignore the smart_contract.json file inside the contracts directory
+!contracts/Product.json
+
