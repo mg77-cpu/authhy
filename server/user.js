@@ -5,12 +5,7 @@ require("dotenv").config();
 module.exports = () => {
   try {
     mongoose.connect(process.env.DB);
-
-    //   , {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    // }
-    console.log(`Connected to database successfully`);
+    console.log(`Connected to database successfully lets goooo!`);
   } catch (error) {
     console.log(error);
     console.log(`Could not connect to database!`);
