@@ -11,7 +11,7 @@ const app = express();
 const cors = require("cors");
 
 // Allow requests from the frontend URL
-const allowedOrigins = ['https://authhyclient.vercel.app/']; // Replace with your actual frontend URL
+const allowedOrigins = ['https://authhyclient.vercel.app']; 
 
 const corsOptions = {
   origin: function (origin, callback) {
