@@ -164,7 +164,7 @@ const GetProduct = () => {
           const accounts = await web3.eth.getAccounts();
           if (accounts.length != 0) {
             setWalletAddress(accounts[0]);
-          toast.infor('Wallet Connected Successfully', {
+          toast.info('Wallet Connected Successfully', {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
