@@ -70,7 +70,7 @@ return (
 						<h2> Login or Signup if you are a Manufacturer.</h2>
                         </div>
                         <div className="font-base text-md relative bottom-24 left-4">
-						<h2> Click the button below to the Login.</h2>
+						<h2> Click the button below to Login.</h2>
 						<a href="/get">	                       <button
                               className=" w-1/2 mt-2 border-[1px] py-1  hover:bg-cyan-200 rounded-full cursor-pointer relative top-10 left-12 white-glassmor"
 						   >

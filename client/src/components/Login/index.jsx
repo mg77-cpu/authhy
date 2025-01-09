@@ -15,10 +15,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    toast.info("Note that for you to add some products you need to create an accoun first.", {
+    toast.info("Note that for you to add some products you need to create an account first.", {
       position: "top-center",
       autoClose: 5000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -106,10 +106,10 @@ const Login = () => {
       const url = `${apiUrl}/api/auth`;
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
-      toast.success('Signed in successfully, yay!', {
+      toast.success('Signed in successfully, now navigate to Add product to begin!', {
                   position: "top-right",
                   autoClose: 5000,
-                  hideProgressBar: false,
+                  hideProgressBar: true,
                   closeOnClick: true,
                   pauseOnHover: true,
                   draggable: true,

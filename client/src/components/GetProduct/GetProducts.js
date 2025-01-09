@@ -1,24 +1,27 @@
 import React, { useEffect, useState, useRef } from "react";
-import ContractInit  from '../contract';
 import QrScanner from 'qr-scanner';
 import WebcamCapture from "../Webcam";
 import jsQR from 'jsqr';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gif5 from "../images/gif5.gif"
+import Product from "../../contracts/Product.json";// Contract ABI 
+import Web3 from "web3";
+
 
 
 const GetProduct = () => {  
 
-  const [{ contract, web3 }] = ContractInit();
 
   //use effect hooks
   const [result, setResult] = useState(null);
   const [scanResult, setScanResult] = useState(null);
+  const [walletAddress, setWalletAddress] = useState(null);
   const [qrCode, setQrCode] = useState(null);
   const [txHashArray, setTxHashArray] = useState([]);
   const [qrArray, setQrArray] = useState([]);
-  const scanElementRef = useRef(null); 
+  const scanElementRef = useRef(null);
+  const [state, setState] = useState({ web3: null, contract: null });
   const viewDetailsRef = useRef(null);
   const [productInf, setProductInf] = useState({ name: null, productId: null, manufacturedDate: null, expiryDate: null, manufacturer: null });
 
@@ -147,6 +150,103 @@ const GetProduct = () => {
 //   }, []);
 
   //search the smart contract for a certain product
+
+  useEffect(() => {
+    const initializeContract = async () => {
+      if (window.ethereum) {
+        try {
+          // Request account access if needed
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+  
+          // Create web3 instance with MetaMask provider
+          const web3 = new Web3(window.ethereum);
+
+          const accounts = await web3.eth.getAccounts();
+          if (accounts.length != 0) {
+            setWalletAddress(accounts[0]);
+          toast.infor('Wallet Connected Successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    return; // Exit if the network is not correct
+          } 
+          // Get network ID
+          const networkId = await web3.eth.net.getId();
+          console.log("Network Id:", networkId);
+          const networkID = networkId.toString();
+          const correctNetworkId = "84532";  // Network ID for Base Sepolia testnet
+          console.log("Network ID:", networkID);
+        
+          if (networkID !== correctNetworkId) {
+            toast.warn("Network is incorrect. Please connect to the Base Sepolia testnet.", {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            console.error("Network is not correct. Please connect to the Base Sepolia testnet.");            
+        }
+  
+          const deployedNetwork = Product.networks[networkId];
+          if (deployedNetwork) {
+            const contract = new web3.eth.Contract(Product.abi, deployedNetwork.address);
+            console.log(contract);
+            setState({ web3, contract });
+            console.log(web3);
+          } else {
+            console.error("Contract not deployed on the current network");
+          }
+        } catch (error) {
+          console.error("Failed to load web3 or contract.", error);
+          toast.warn("An error has occured please check your internet connection.", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      } else {
+        console.error("MetaMask not detected. Please install MetaMask.");
+        toast.warn("MetaMask not detected. Please install a web3 or crypto wallet.", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+  
+    };
+  
+    // Initialize contract
+    initializeContract();
+  
+    // Clean up the effect
+    return () => {
+      setState({ contract: null, web3: null });
+    };
+  }, []);
+  
+  const { contract, web3 } = state;
+
+
     async function handleGetData (event){
     event.preventDefault();
     
@@ -188,7 +288,7 @@ const GetProduct = () => {
         {
           position: "top-center",
           autoClose: 5000,
-          hideProgressBar: false,
+          hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
@@ -225,7 +325,7 @@ const GetProduct = () => {
           toast.warn('Product does not exist in the system', {
             position: "top-center",
             autoClose: 5000,
-            hideProgressBar: false,
+            hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,

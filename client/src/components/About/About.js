@@ -22,9 +22,9 @@ function About() {
       try {
         if (error) {
           toast.warn('Failed to fetch the number of companies. Maybe check your internet connectivity and reload page.', {
-            position: "top-center",
+            position: "bottom-right",
             autoClose: 5000,
-            hideProgressBar: false,
+            hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,

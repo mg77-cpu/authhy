@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Product from '../contracts/Product.json'; // Contract ABI
 import { toast } from 'react-toastify';
 
+
 const ContractInit = () => {
   const [state, setState] = useState({ web3: null, contract: null });
   const [walletAddress, setWalletAddress] = useState(null);

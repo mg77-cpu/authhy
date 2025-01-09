@@ -161,7 +161,7 @@ const Signup = () => {
 	    toast.success('Signed up successfully, yay!', {
 					  position: "top-right",
 					  autoClose: 5000,
-					  hideProgressBar: false,
+					  hideProgressBar: true,
 					  closeOnClick: true,
 					  pauseOnHover: true,
 					  draggable: true,
@@ -182,7 +182,7 @@ const Signup = () => {
         toast.error(error.response.data.message, {
           position: "top-center",
           autoClose: 5000,
-          hideProgressBar: false,
+          hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
@@ -196,7 +196,6 @@ const Signup = () => {
 
 return (
 <div className="flex w-full h-screen justify-center items-center relative "
-    
     >
    <form className="p-3 flex flex-initial justify-center items-center rounded-xl h-2/3 w-96 sm:w-1/2 my-5 eth-card-m white-glassmorphism absolute top-14 left-80"
    type="submit"
@@ -273,7 +272,6 @@ return (
 		name="phone"
 		onChange={handleChange}
 		value={data.phone}
-		
 		className="my-1 w-full rounded-sm p-2 outline-none bg-transparent border-none text-sm blue-glassmorphism"
 		/>
 		<input
@@ -282,7 +280,6 @@ return (
 		name="address"
 		onChange={handleChange}
 		value={data.address}
-		
 		className="my-1 w-full rounded-sm p-2 outline-none bg-transparent border-none text-sm blue-glassmorphism"
 		/>
 		<input
@@ -291,7 +288,6 @@ return (
 		name="website"
 		onChange={handleChange}
 		value={data.website}
-
 		className="my-1 w-full rounded-sm p-2 outline-none bg-transparent text-black-500 border-none text-sm blue-glassmorphism"
 		/>
 		<button type="submit"
